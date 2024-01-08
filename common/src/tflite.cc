@@ -107,6 +107,11 @@ constexpr int kTensorArenaSize = const_max<int>(
 #ifdef INCLUDE_MODEL_MLCOMMONS_TINY_V01_VWW
     99 * 1024,
 #endif
+
+#ifdef INCLUDE_MODEL_DS_CNN_STREAM_FE
+    2500 * 1024,
+#endif
+
     0 /* When no models defined, we don't need a tensor arena. */
 );
 
@@ -185,7 +190,8 @@ void tflite_load_model(const unsigned char* model_data,
     printf(" %d", dims->data[ii]);
   }
   puts("\n");
-
+  printf("DRAM: %d bytes\n", interpreter->arena_used_bytes());
+  
   tflite_postload();
 }
 
